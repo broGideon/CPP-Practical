@@ -1,0 +1,29 @@
+﻿  Pract-4.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\type_traits(1875,79): error C2794: type: не является прямым или косвенным базовым классом для "std::_Invoke_traits_zero<void,_Urng &>"
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\type_traits(1875,79): error C2794:         with
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\type_traits(1875,79): error C2794:         [
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\type_traits(1875,79): error C2794:             _Urng=_Urng0
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\type_traits(1875,79): error C2794:         ]
+  (компиляция исходного файла "Pract-4.cpp")
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\type_traits(1875,79):
+  контекст создания экземпляра шаблона (сначала самый старый)
+  	C:\Users\broGideon\source\repos\Pract-4\Pract-4\Pract-4.cpp(60,5):
+  	выполняется компиляция ссылки на экземпляр шаблон функции "void std::shuffle<std::_String_iterator<std::_String_val<std::_Simple_types<_Elem>>>,int>(_RanIt,_RanIt,_Urng &&)"
+          with
+          [
+              _Elem=char,
+              _RanIt=std::_String_iterator<std::_String_val<std::_Simple_types<char>>>,
+              _Urng=int
+          ]
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\algorithm(5314,50):
+  	выполняется компиляция ссылки на экземпляр класс шаблон функции "std::_Rng_from_urng<__int64,_Urng0>"
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\algorithm(5033,18):
+  	выполняется компиляция ссылки на экземпляр псевдоним шаблон функции "std::_Invoke_result_t<_Urng&,>"
+          with
+          [
+              _Urng=_Urng0
+          ]
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\algorithm(5033,18): error C2938: "std::_Invoke_result_t": не удалось специализировать шаблон псевдонима
+  (компиляция исходного файла "Pract-4.cpp")
+  
