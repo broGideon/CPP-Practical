@@ -74,8 +74,8 @@ public:
     map<wstring, wstring> GetInfo() {
         map<wstring, wstring> ProfessorData;
         ProfessorData[L"firstName"] = this->_firstName;
-        ProfessorData[L"surName"] = this->_surname;
-        ProfessorData[L"middleNamename"] = this->_middleName;
+        ProfessorData[L"surname"] = this->_surname;
+        ProfessorData[L"middleName"] = this->_middleName;
         ProfessorData[L"discipline"] = this->discipline;
         return ProfessorData;
     }
@@ -98,7 +98,7 @@ public:
               << L"Возраст -- " << this->_age << endl;
     }
 
-    void Main(vector<Professor> &professors) {
+    Practice Main(vector<Professor> &professors) {
         wcout << L"Выберите кому хотите сдать практос:\n";
         for (int i = 0; i < professors.size(); i++) {
             wcout << i + 1;
@@ -108,8 +108,10 @@ public:
         unsigned num;
         wcin >> num;
 
-        map<wstring, wstring> ProfessorData = professors[num - 1].GetInfo();
+        map<wstring, wstring> professorData = professors[num - 1].GetInfo();
         //Сделать создание практоса
+
+        return Practice(professorData["discipline"], this->_firstName, this->_surname, this->groupe, professorData["firstName"], professorData["surname"]);
     }
 
 };
