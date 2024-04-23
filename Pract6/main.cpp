@@ -16,7 +16,7 @@ public:
     wstring professorSurname;
     unsigned score;
 
-    Practice(wstring &discipline, wstring &studentName, wstring &studentSurname, wstring &&studentGroup,
+    Practice(wstring &discipline, wstring &studentName, wstring &studentSurname, wstring &studentGroup,
              wstring &professorName, wstring &professorSurname)
             : discipline(discipline), studentName(studentName), studentSurname(studentSurname),
               studentGroup(studentGroup), professorName(professorName), professorSurname(professorSurname) {}
@@ -109,10 +109,10 @@ public:
         wcin >> num;
 
         map<wstring, wstring> professorData = professors[num - 1].GetInfo();
-        //Сделать создание практоса
 
-        return Practice(professorData["discipline"], this->_firstName, this->_surname, this->groupe, professorData["firstName"], professorData["surname"]);
+        return Practice(professorData[L"discipline"], this->_firstName, this->_surname, this->groupe, professorData[L"firstName"], professorData[L"surname"]);
     }
+
 
 };
 
@@ -178,7 +178,7 @@ int main() {
 
     unsigned choise;
     while (choise != 3) {
-        system("cls");
+        //system("cls");
         wcout << L"Выберите за кого хотите зайти: " << endl;
         wcout << L"1. Препод" << endl;
         wcout << L"2. Студент" << endl;
