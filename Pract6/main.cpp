@@ -16,30 +16,29 @@ public:
     wstring professorSurname;
     unsigned score;
 
-    Practice(wstring &discipline, wstring &studentName, wstring &studentSurname, wstring &studentGroup,
-             wstring &professorName, wstring &professorSurname)
-            : discipline(discipline), studentName(studentName), studentSurname(studentSurname),
-              studentGroup(studentGroup), professorName(professorName), professorSurname(professorSurname) {}
+    Practice(wstring &discipline, wstring &studentName, wstring &studentSurname, wstring &&studentGroup, wstring &professorName, wstring &professorSurname)
+            : discipline(discipline), studentName(studentName), studentSurname(studentSurname), studentGroup(studentGroup), professorName(professorName), professorSurname(professorSurname) {}
 };
 
-class People {
+class Human {
 public:
     wstring _surname;
     wstring _firstName;
     wstring _middleName;
     unsigned _age;
 
-    People(wstring &surname, wstring &firstName, wstring &middleName, unsigned &age) : _surname(surname), _firstName(firstName), _middleName(middleName), _age(age) {}
+    Human(wstring &surname, wstring &firstName, wstring &middleName, unsigned &age) : _surname(surname), _firstName(firstName), _middleName(middleName), _age(age) {}
 
     virtual void Main() {}
 };
 
-class Professor : public People {
+class Professor : public Human {
 public:
     wstring discipline;
+    vector<Practice>& practices;
 
-    Professor(wstring &surname, wstring &firstName, wstring &middleName, unsigned &age, wstring &discipline) : People(
-            surname, firstName, middleName, age), discipline(discipline) {
+    Professor(wstring &surname, wstring &firstName, wstring &middleName, unsigned &age, wstring &discipline, vector<Practice>& practices)
+    : Human(surname, firstName, middleName, age), discipline(discipline), practices(practices) {
         wcout << L"Вы зарегестрировали нового преподователя: " << endl;
         wcout << L"Дисциплина -- " << this->discipline << endl <<
               L"Имя --" << this->_firstName << endl <<
@@ -48,22 +47,22 @@ public:
               L"Возраст -- " << this->_age << endl;
     }
 
-    void Main(vector<Practice> &Practices) {
+    void Main() override {
         wcout << L"Выберите какую практическую вы хотите проверить:" << endl;
         int i = 0;
-        for (Practice practice: Practices) {
+        for (Practice practice : this->practices) {
             wcout << i << L" . " << practice.studentName << " " << practice.professorSurname << endl;
             i++;
         }
         wcout << endl;
         wcin >> i;
 
-        wcout << L"Вы выбрали практическую" << Practices[i].studentName << " " << Practices[i].studentSurname << endl;
+        wcout << L"Вы выбрали практическую" << this->practices[i].studentName << " " << this->practices[i].studentSurname << endl;
         wcout << endl;
         wcout << L"Поставьте оценцу от 1 до 5 за практическую" << endl;
-        wcin >> Practices[i].score;
-        wcout << L"Вы поставлили " << Practices[i].score << L"На практическую " << Practices[i].studentName << L" "
-              << Practices[i].studentSurname << endl;
+        wcin >> this->practices[i].score;
+        wcout << L"Вы поставлили " << this->practices[i].score << L"На практическую " << this->practices[i].studentName << L" "
+              << this->practices[i].studentSurname << endl;
     }
 
     void Display() {
@@ -81,42 +80,42 @@ public:
     }
 };
 
-class Student : People {
+class Student : Human {
 public:
-    wstring groupe;
+    wstring group;
     wstring faculty;
-    unsigned attendance;
+    vector<Professor>& professors;
 
-    Student(wstring &surname, wstring &firstName, wstring &middleName, unsigned &age, wstring &groupe, wstring &faculty)
-            : People(surname, firstName, middleName, age), groupe(groupe), faculty(faculty) {
+    Student(wstring& surname, wstring& firstName, wstring& middleName, unsigned& age, wstring& group, wstring& faculty, vector<Professor>& professors)
+            : Human(surname, firstName, middleName, age), group(group), faculty(faculty), professors(professors) {
         wcout << L"Вы зарегестрировали нового студента" << endl;
         wcout << L"Факультет -- " << this->faculty << endl
-              << L"Группа -- " << this->groupe << endl
+              << L"Группа -- " << this->group << endl
               << L"Фамилия -- " << this->_surname << endl
               << L"Имя -- " << this->_firstName << endl
               << L"Отчество -- " << this->_middleName << endl
               << L"Возраст -- " << this->_age << endl;
     }
 
-    Practice Main(vector<Professor> &professors) {
+    void Main() override {
         wcout << L"Выберите кому хотите сдать практос:\n";
-        for (int i = 0; i < professors.size(); i++) {
+        for (int i = 0; i < this->professors.size(); i++) {
             wcout << i + 1;
-            professors[i].Display();
+            this->professors[i].Display();
         }
 
         unsigned num;
         wcin >> num;
 
-        map<wstring, wstring> professorData = professors[num - 1].GetInfo();
+        map<wstring, wstring> professorData = this->professors[num - 1].GetInfo();
+        //Сделать создание практоса
 
-        return Practice(professorData[L"discipline"], this->_firstName, this->_surname, this->groupe, professorData[L"firstName"], professorData[L"surname"]);
+        //return Practice(professorData["discipline"], this->_firstName, this->_surname, this->group, professorData["firstName"], professorData["surname"]);
     }
-
 
 };
 
-Student createStudent() {
+Student createStudent(vector<Professor>& professors) {
     wstring surname;
     wcout << L"Введите фамилия студунта" << endl;
     wcin >> surname;
@@ -133,18 +132,18 @@ Student createStudent() {
     wcout << L"Введите возраст студунта" << endl;
     wcin >> age;
 
-    wstring groupe;
+    wstring group;
     wcout << L"Введите группу студунта" << endl;
-    wcin >> groupe;
+    wcin >> group;
 
     wstring faculty;
     wcout << L"Введите факультет студунта" << endl;
     wcin >> faculty;
 
-    return Student(surname, firstName, middleName, age, groupe, faculty);
+    return Student(surname, firstName, middleName, age, group, faculty, professors);
 }
 
-Professor createProfessor() {
+Professor createProfessor(vector<Practice>& Practices) {
     wstring firstName;
     wcout << L"Введите имя препода" << endl;
     wcin >> firstName;
@@ -165,7 +164,37 @@ Professor createProfessor() {
     wcout << L"Введите дисциплина препода" << endl;
     wcin >> discipline;
 
-    return Professor(surname, firstName, middleName, age, discipline);
+    return Professor(surname, firstName, middleName, age, discipline, Practices);
+}
+
+void authorization(int& choice, vector<Professor>& listProfessors, vector<Student>& listStudents) {
+
+}
+
+void registration(int& choice, vector<Professor>& listProfessors, vector<Student>& listStudents, vector<Practice>& listPractices) {
+    choice = 0;
+    while (choice != 3) {
+        system("cls");
+        wcout << L"Выберите за кого хотите создать: " << endl;
+        wcout << L"1. Препод" << endl;
+        wcout << L"2. Студент" << endl;
+        wcout << L"3. Выйти" << endl;
+        wcin >> choice;
+
+        switch (choice) {
+            case 1:
+                listProfessors.push_back(createProfessor(listPractices));
+                break;
+            case 2:
+                listStudents.push_back(createStudent(listProfessors));
+                break;
+            case 3:
+                wcout << L"Выход" << endl;
+            default:
+                wcout << L"Выберите числов от 1 до 3" << endl;
+                break;
+        }
+    }
 }
 
 int main() {
@@ -174,28 +203,27 @@ int main() {
     SetConsoleCP(1251);
 
     vector<Professor> listProfessors;
+
+    vector<Practice> listPractice;
+
     vector<Student> listStudents;
 
-    unsigned choise;
-    while (choise != 3) {
-        //system("cls");
+    int choice;
+    while (choice != 3) {
         wcout << L"Выберите за кого хотите зайти: " << endl;
-        wcout << L"1. Препод" << endl;
-        wcout << L"2. Студент" << endl;
+        wcout << L"1. Авторизоваться" << endl;
+        wcout << L"2. Зарегаться" << endl;
         wcout << L"3. Выйти" << endl;
-        wcin >> choise;
+        wcin >> choice;
 
-        switch (choise) {
+        switch (choice) {
             case 1:
-                listProfessors.push_back(createProfessor());
+                authorization(choice, listProfessors, listStudents);
                 break;
             case 2:
-                listStudents.push_back(createStudent());
+                registration(choice, listProfessors, listStudents, listPractice);
                 break;
-            case 3:
-                wcout << L"Выход" << endl;
             default:
-                wcout << L"Выберите числов от 1 до 3" << endl;
                 break;
         }
     }
