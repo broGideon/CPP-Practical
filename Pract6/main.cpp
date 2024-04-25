@@ -44,14 +44,7 @@ public:
     vector<Practice>& practices;
 
     Professor(wstring surname, wstring firstName, wstring middleName, unsigned age, wstring discipline, vector<Practice>& practices)
-    : Human(surname, firstName, middleName, age), discipline(discipline), practices(practices) {
-        wcout << L"Вы зарегестрировали нового преподователя: " << endl;
-        wcout << L"Дисциплина -- " << this->discipline << endl <<
-              L"Имя --" << this->_firstName << endl <<
-              L"Фамилия --" << this->_surname << endl <<
-              L"Отчество --" << this->_middleName << endl <<
-              L"Возраст -- " << this->_age << endl;
-    }
+    : Human(surname, firstName, middleName, age), discipline(discipline), practices(practices) {}
 
     void Main() override {
         wcout << L"Выберите какую практическую вы хотите проверить:" << endl;
@@ -106,15 +99,7 @@ public:
     vector<Practice>& practices;
 
     Student(wstring surname, wstring firstName, wstring middleName, unsigned age, wstring group, wstring faculty, vector<Professor>& professors, vector<Practice>& practices)
-            : Human(surname, firstName, middleName, age), group(group), faculty(faculty), professors(professors), practices(practices) {
-        wcout << L"Вы зарегестрировали нового студента" << endl;
-        wcout << L"Факультет -- " << this->faculty << endl
-              << L"Группа -- " << this->group << endl
-              << L"Фамилия -- " << this->_surname << endl
-              << L"Имя -- " << this->_firstName << endl
-              << L"Отчество -- " << this->_middleName << endl
-              << L"Возраст -- " << this->_age << endl;
-    }
+            : Human(surname, firstName, middleName, age), group(group), faculty(faculty), professors(professors), practices(practices) {}
 
     void Main() override {
         wcout << L"Выберите кому хотите сдать практос:\n";
@@ -217,7 +202,7 @@ short auth(vector<T>& accounts) {
         if (accData[L"Name"] == account.GetName() && accData[L"Surname"] == account.GetSurname()) return i;
         i++;
     }
-    throw runtime_error(L"Аккаунт не найден");
+    throw runtime_error("Аккаунт не найден");
 }
 
 void authorization(vector<Professor>& listProfessors, vector<Student>& listStudents) {
