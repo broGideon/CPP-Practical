@@ -30,6 +30,12 @@ public:
     Human(wstring &surname, wstring &firstName, wstring &middleName, unsigned &age) : _surname(surname), _firstName(firstName), _middleName(middleName), _age(age) {}
 
     virtual void Main() {}
+    virtual wstring GetName() {
+        return  _firstName;
+    }
+    virtual wstring GetSurname() {
+        return _surname;
+    }
 };
 
 class Professor : public Human {
@@ -37,7 +43,7 @@ public:
     wstring discipline;
     vector<Practice>& practices;
 
-    Professor(wstring &surname, wstring &firstName, wstring &middleName, unsigned &age, wstring &discipline, vector<Practice>& practices)
+    Professor(wstring surname, wstring firstName, wstring middleName, unsigned age, wstring discipline, vector<Practice>& practices)
     : Human(surname, firstName, middleName, age), discipline(discipline), practices(practices) {
         wcout << L"Вы зарегестрировали нового преподователя: " << endl;
         wcout << L"Дисциплина -- " << this->discipline << endl <<
@@ -65,6 +71,14 @@ public:
               << this->practices[i].studentSurname << endl;
     }
 
+    wstring GetName() override {
+        return this->_firstName;
+    }
+
+    wstring GetSurname() override {
+        return this->_surname;
+    }
+
     void Display() {
         wcout << L"Дисциплина: " << this->discipline << L"\nПрепод: " << this->_surname << " " << this->_firstName
               << " " << this->_middleName;
@@ -86,7 +100,7 @@ public:
     wstring faculty;
     vector<Professor>& professors;
 
-    Student(wstring& surname, wstring& firstName, wstring& middleName, unsigned& age, wstring& group, wstring& faculty, vector<Professor>& professors)
+    Student(wstring surname, wstring firstName, wstring middleName, unsigned age, wstring group, wstring faculty, vector<Professor>& professors)
             : Human(surname, firstName, middleName, age), group(group), faculty(faculty), professors(professors) {
         wcout << L"Вы зарегестрировали нового студента" << endl;
         wcout << L"Факультет -- " << this->faculty << endl
@@ -113,6 +127,13 @@ public:
         //return Practice(professorData["discipline"], this->_firstName, this->_surname, this->group, professorData["firstName"], professorData["surname"]);
     }
 
+    wstring GetName() override {
+        return this->_firstName;
+    }
+
+    wstring GetSurname() override {
+        return this->_surname;
+    }
 };
 
 Student createStudent(vector<Professor>& professors) {
@@ -167,14 +188,72 @@ Professor createProfessor(vector<Practice>& Practices) {
     return Professor(surname, firstName, middleName, age, discipline, Practices);
 }
 
-void authorization(int& choice, vector<Professor>& listProfessors, vector<Student>& listStudents) {
+map<wstring, wstring> getAccountData() {
+    map<wstring, wstring> accData;
+    wcout << L"Введите имя" << endl;
+    wcin >> accData[L"Name"];
 
+    wstring surname;
+    wcout << L"Введите фамилию" << endl;
+    wcin >> accData[L"Surname"];;
+
+    return accData;
+}
+
+template<typename T>
+short auth(vector<T>& accounts) {
+    map<wstring, wstring> accData = getAccountData();
+    short i = 0;
+    for (auto& account : accounts)
+    {
+        if (accData[L"Name"] == account.GetName() && accData[L"Surname"] == account.GetSurname()) return i;
+        i++;
+    }
+    throw runtime_error("Аккаунт не найден");
+}
+
+void authorization(int& choice, vector<Professor>& listProfessors, vector<Student>& listStudents) {
+    choice = 0;
+    short checkAuth = -1;
+    while (choice != 3) {
+        //system("cls");
+        wcout << L"Выберите за кого хотите авторизоваться: " << endl;
+        wcout << L"1. Препод" << endl;
+        wcout << L"2. Студент" << endl;
+        wcout << L"3. Выйти" << endl;
+        wcin >> choice;
+
+        try {
+            switch (choice) {
+                case 1:
+                    checkAuth = auth(listProfessors);
+                    break;
+                case 2:
+                    checkAuth = auth(listStudents);
+                    break;
+                case 3:
+                    wcout << L"Выход" << endl;
+                default:
+                    wcout << L"Выберите числов от 1 до 3" << endl;
+                    break;
+            }
+        }
+        catch (runtime_error& e) {
+            wcout << endl << L"Аккаунт не найден" << endl << endl;
+        }
+
+        if (checkAuth != -1 && choice = 1) {
+            listProfessors[checkAuth].Main();
+        } else if (checkAuth != -1 && choice = 2) {
+            listStudents[checkAuth].Main();
+        }
+    }
 }
 
 void registration(int& choice, vector<Professor>& listProfessors, vector<Student>& listStudents, vector<Practice>& listPractices) {
     choice = 0;
     while (choice != 3) {
-        system("cls");
+        //system("cls");
         wcout << L"Выберите за кого хотите создать: " << endl;
         wcout << L"1. Препод" << endl;
         wcout << L"2. Студент" << endl;
@@ -207,6 +286,14 @@ int main() {
     vector<Practice> listPractice;
 
     vector<Student> listStudents;
+
+    listProfessors.push_back(Professor(L"Фамилия", L"Имя", L"Отчество", 25, L"ОАИП", listPractice));
+    listProfessors.push_back(Professor(L"1", L"1", L"1", 25, L"ОАИП", listPractice));
+    listProfessors.push_back(Professor(L"2", L"2", L"2", 25, L"ОАИП", listPractice));
+
+    listStudents.push_back(Student(L"Фамилия", L"Имя", L"Отчество", 25, L"П50-3-22", L"ИСИП", listProfessors));
+    listStudents.push_back(Student(L"1", L"1", L"1", 25, L"П50-3-22", L"ИСИП", listProfessors));
+    listStudents.push_back(Student(L"2", L"2", L"2", 25, L"П50-3-22", L"ИСИП", listProfessors));
 
     int choice;
     while (choice != 3) {

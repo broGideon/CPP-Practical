@@ -1,5 +1,5 @@
 CMakeFiles/untitled.dir/main.cpp.obj: \
- C:\Users\eto_d\Desktop\Pract6\main.cpp \
+ C:\Users\eto_d\Desktop\CPP-Practical\Pract6\main.cpp \
  C:/Users/eto_d/AppData/Local/Programs/CLion/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/iostream \
  C:/Users/eto_d/AppData/Local/Programs/CLion/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/requires_hosted.h \
  C:/Users/eto_d/AppData/Local/Programs/CLion/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32/bits/c++config.h \

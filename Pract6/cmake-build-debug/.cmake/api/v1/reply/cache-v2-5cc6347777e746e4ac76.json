@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "c:/Users/eto_d/Desktop/Pract6/cmake-build-debug"
+			"value" : "c:/Users/eto_d/Desktop/CPP-Practical/Pract6/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -643,7 +643,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/eto_d/Desktop/Pract6/cmake-build-debug/CMakeFiles/pkgRedirects"
+			"value" : "C:/Users/eto_d/Desktop/CPP-Practical/Pract6/cmake-build-debug/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -715,7 +715,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/Users/eto_d/Desktop/Pract6"
+			"value" : "C:/Users/eto_d/Desktop/CPP-Practical/Pract6"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -1363,7 +1363,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/eto_d/Desktop/Pract6/cmake-build-debug"
+			"value" : "C:/Users/eto_d/Desktop/CPP-Practical/Pract6/cmake-build-debug"
 		},
 		{
 			"name" : "untitled_IS_TOP_LEVEL",
@@ -1387,7 +1387,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/eto_d/Desktop/Pract6"
+			"value" : "C:/Users/eto_d/Desktop/CPP-Practical/Pract6"
 		}
 	],
 	"kind" : "cache",

@@ -112,7 +112,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "C:/Users/eto_d/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows.cmake"
   "C:/Users/eto_d/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/WindowsPaths.cmake"
   "C:/Users/eto_d/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.28/Modules/ProcessorCount.cmake"
-  "C:/Users/eto_d/Desktop/Pract6/CMakeLists.txt"
+  "C:/Users/eto_d/Desktop/CPP-Practical/Pract6/CMakeLists.txt"
   "CMakeFiles/3.28.1/CMakeCCompiler.cmake"
   "CMakeFiles/3.28.1/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.28.1/CMakeRCCompiler.cmake"
