@@ -16,7 +16,7 @@ public:
     wstring professorSurname;
     unsigned score;
 
-    Practice(wstring &discipline, wstring &studentName, wstring &studentSurname, wstring &&studentGroup, wstring &professorName, wstring &professorSurname)
+    Practice(wstring &discipline, wstring &studentName, wstring &studentSurname, wstring &studentGroup, wstring &professorName, wstring &professorSurname)
             : discipline(discipline), studentName(studentName), studentSurname(studentSurname), studentGroup(studentGroup), professorName(professorName), professorSurname(professorSurname) {}
 };
 
@@ -55,20 +55,32 @@ public:
 
     void Main() override {
         wcout << L"Выберите какую практическую вы хотите проверить:" << endl;
-        int i = 0;
+        int i = 1;
         for (Practice practice : this->practices) {
-            wcout << i << L" . " << practice.studentName << " " << practice.professorSurname << endl;
+            wcout << i << L". " << practice.studentName << " " << practice.professorSurname << endl;
             i++;
         }
         wcout << endl;
         wcin >> i;
 
-        wcout << L"Вы выбрали практическую" << this->practices[i].studentName << " " << this->practices[i].studentSurname << endl;
+        if(i < 0 || i > practices.size()) {
+            wcout << L"Такой практической нет\n";
+            return;
+        }
+
+        wcout << L"Вы выбрали практическую" << this->practices[i-1].studentName << " " << this->practices[i-1].studentSurname << endl;
         wcout << endl;
         wcout << L"Поставьте оценцу от 1 до 5 за практическую" << endl;
-        wcin >> this->practices[i].score;
-        wcout << L"Вы поставлили " << this->practices[i].score << L"На практическую " << this->practices[i].studentName << L" "
-              << this->practices[i].studentSurname << endl;
+        wcin >> this->practices[i-1].score;
+
+        wcout << L"Такую оценку поставить нельзя\n";
+        if(this->practices[i-1].score < 2 || this->practices[i-1].score > 5) {
+            this->practices[i-1].score = 0;
+            return;
+        }
+
+        wcout << L"Вы поставлили " << this->practices[i-1].score << L" на практическую " << this->practices[i-1].studentName << L" "
+              << this->practices[i-1].studentSurname << endl;
     }
 
     wstring GetName() override {
@@ -81,17 +93,9 @@ public:
 
     void Display() {
         wcout << L"Дисциплина: " << this->discipline << L"\nПрепод: " << this->_surname << " " << this->_firstName
-              << " " << this->_middleName;
+              << " " << this->_middleName << "\n";
     }
 
-    map<wstring, wstring> GetInfo() {
-        map<wstring, wstring> ProfessorData;
-        ProfessorData[L"firstName"] = this->_firstName;
-        ProfessorData[L"surname"] = this->_surname;
-        ProfessorData[L"middleName"] = this->_middleName;
-        ProfessorData[L"discipline"] = this->discipline;
-        return ProfessorData;
-    }
 };
 
 class Student : Human {
@@ -99,9 +103,10 @@ public:
     wstring group;
     wstring faculty;
     vector<Professor>& professors;
+    vector<Practice>& practices;
 
-    Student(wstring surname, wstring firstName, wstring middleName, unsigned age, wstring group, wstring faculty, vector<Professor>& professors)
-            : Human(surname, firstName, middleName, age), group(group), faculty(faculty), professors(professors) {
+    Student(wstring surname, wstring firstName, wstring middleName, unsigned age, wstring group, wstring faculty, vector<Professor>& professors, vector<Practice>& practices)
+            : Human(surname, firstName, middleName, age), group(group), faculty(faculty), professors(professors), practices(practices) {
         wcout << L"Вы зарегестрировали нового студента" << endl;
         wcout << L"Факультет -- " << this->faculty << endl
               << L"Группа -- " << this->group << endl
@@ -113,18 +118,21 @@ public:
 
     void Main() override {
         wcout << L"Выберите кому хотите сдать практос:\n";
+
         for (int i = 0; i < this->professors.size(); i++) {
-            wcout << i + 1;
+            wcout << i + 1 << ". ";
             this->professors[i].Display();
         }
 
         unsigned num;
         wcin >> num;
+        if(num <= 0 || num > professors.size()){
+            wcout << L"Такого преподавателя нет\n";
+            return;
+        }
 
-        map<wstring, wstring> professorData = this->professors[num - 1].GetInfo();
-        //Сделать создание практоса
+        practices.push_back(Practice(professors[num-1].discipline, this->_firstName, this->_surname, this->group, professors[num-1]._firstName, professors[num-1]._surname));
 
-        //return Practice(professorData["discipline"], this->_firstName, this->_surname, this->group, professorData["firstName"], professorData["surname"]);
     }
 
     wstring GetName() override {
@@ -136,7 +144,7 @@ public:
     }
 };
 
-Student createStudent(vector<Professor>& professors) {
+Student createStudent(vector<Professor>& professors, vector<Practice>& practices) {
     wstring surname;
     wcout << L"Введите фамилия студунта" << endl;
     wcin >> surname;
@@ -161,7 +169,7 @@ Student createStudent(vector<Professor>& professors) {
     wcout << L"Введите факультет студунта" << endl;
     wcin >> faculty;
 
-    return Student(surname, firstName, middleName, age, group, faculty, professors);
+    return Student(surname, firstName, middleName, age, group, faculty, professors, practices);
 }
 
 Professor createProfessor(vector<Practice>& Practices) {
@@ -209,11 +217,11 @@ short auth(vector<T>& accounts) {
         if (accData[L"Name"] == account.GetName() && accData[L"Surname"] == account.GetSurname()) return i;
         i++;
     }
-    throw runtime_error("Аккаунт не найден");
+    throw runtime_error(L"Аккаунт не найден");
 }
 
-void authorization(int& choice, vector<Professor>& listProfessors, vector<Student>& listStudents) {
-    choice = 0;
+void authorization(vector<Professor>& listProfessors, vector<Student>& listStudents) {
+    int choice = 0;
     short checkAuth = -1;
     while (choice != 3) {
         //system("cls");
@@ -233,6 +241,7 @@ void authorization(int& choice, vector<Professor>& listProfessors, vector<Studen
                     break;
                 case 3:
                     wcout << L"Выход" << endl;
+                    break;
                 default:
                     wcout << L"Выберите числов от 1 до 3" << endl;
                     break;
@@ -242,19 +251,19 @@ void authorization(int& choice, vector<Professor>& listProfessors, vector<Studen
             wcout << endl << L"Аккаунт не найден" << endl << endl;
         }
 
-        if (checkAuth != -1 && choice = 1) {
+        if (checkAuth != -1 && choice == 1) {
             listProfessors[checkAuth].Main();
-        } else if (checkAuth != -1 && choice = 2) {
+        } else if (checkAuth != -1 && choice == 2) {
             listStudents[checkAuth].Main();
         }
     }
 }
 
-void registration(int& choice, vector<Professor>& listProfessors, vector<Student>& listStudents, vector<Practice>& listPractices) {
-    choice = 0;
+void registration(vector<Professor>& listProfessors, vector<Student>& listStudents, vector<Practice>& listPractices) {
+    int choice = 0;
     while (choice != 3) {
         //system("cls");
-        wcout << L"Выберите за кого хотите создать: " << endl;
+        wcout << L"Выберите кого хотите создать: " << endl;
         wcout << L"1. Препод" << endl;
         wcout << L"2. Студент" << endl;
         wcout << L"3. Выйти" << endl;
@@ -265,10 +274,11 @@ void registration(int& choice, vector<Professor>& listProfessors, vector<Student
                 listProfessors.push_back(createProfessor(listPractices));
                 break;
             case 2:
-                listStudents.push_back(createStudent(listProfessors));
+                listStudents.push_back(createStudent(listProfessors, listPractices));
                 break;
             case 3:
                 wcout << L"Выход" << endl;
+                break;
             default:
                 wcout << L"Выберите числов от 1 до 3" << endl;
                 break;
@@ -291,11 +301,11 @@ int main() {
     listProfessors.push_back(Professor(L"1", L"1", L"1", 25, L"ОАИП", listPractice));
     listProfessors.push_back(Professor(L"2", L"2", L"2", 25, L"ОАИП", listPractice));
 
-    listStudents.push_back(Student(L"Фамилия", L"Имя", L"Отчество", 25, L"П50-3-22", L"ИСИП", listProfessors));
-    listStudents.push_back(Student(L"1", L"1", L"1", 25, L"П50-3-22", L"ИСИП", listProfessors));
-    listStudents.push_back(Student(L"2", L"2", L"2", 25, L"П50-3-22", L"ИСИП", listProfessors));
+    listStudents.push_back(Student(L"Фамилия", L"Имя", L"Отчество", 25, L"П50-3-22", L"ИСИП", listProfessors, listPractice));
+    listStudents.push_back(Student(L"1", L"1", L"1", 25, L"П50-3-22", L"ИСИП", listProfessors, listPractice));
+    listStudents.push_back(Student(L"2", L"2", L"2", 25, L"П50-3-22", L"ИСИП", listProfessors, listPractice));
 
-    int choice;
+    int choice = 0;
     while (choice != 3) {
         wcout << L"Выберите за кого хотите зайти: " << endl;
         wcout << L"1. Авторизоваться" << endl;
@@ -305,10 +315,13 @@ int main() {
 
         switch (choice) {
             case 1:
-                authorization(choice, listProfessors, listStudents);
+                authorization(listProfessors, listStudents);
                 break;
             case 2:
-                registration(choice, listProfessors, listStudents, listPractice);
+                registration(listProfessors, listStudents, listPractice);
+                break;
+            case 3:
+                wcout << L"Выход" << endl;
                 break;
             default:
                 break;
