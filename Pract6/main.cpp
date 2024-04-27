@@ -17,7 +17,8 @@ public:
     unsigned score;
 
     Practice(wstring &discipline, wstring &studentName, wstring &studentSurname, wstring &studentGroup, wstring &professorName, wstring &professorSurname)
-            : discipline(discipline), studentName(studentName), studentSurname(studentSurname), studentGroup(studentGroup), professorName(professorName), professorSurname(professorSurname) {}
+            : discipline(discipline), studentName(studentName), studentSurname(studentSurname),
+            studentGroup(studentGroup), professorName(professorName), professorSurname(professorSurname) {}
 };
 
 class Human {
@@ -27,7 +28,8 @@ public:
     wstring _middleName;
     unsigned _age;
 
-    Human(wstring &surname, wstring &firstName, wstring &middleName, unsigned &age) : _surname(surname), _firstName(firstName), _middleName(middleName), _age(age) {}
+    Human(wstring &surname, wstring &firstName, wstring &middleName, unsigned &age) :
+    _surname(surname), _firstName(firstName), _middleName(middleName), _age(age) {}
 
     virtual void Main() {}
     virtual wstring GetName() {
@@ -50,7 +52,7 @@ public:
         wcout << L"Выберите какую практическую вы хотите проверить:" << endl;
         int i = 1;
         for (Practice practice : this->practices) {
-            wcout << i << L". " << practice.studentName << " " << practice.professorSurname << endl;
+            wcout << i << L". " << practice.studentName << " " << practice.studentSurname << endl;
             i++;
         }
         wcout << endl;
@@ -61,9 +63,9 @@ public:
             return;
         }
 
-        wcout << L"Вы выбрали практическую" << this->practices[i-1].studentName << " " << this->practices[i-1].studentSurname << endl;
+        wcout << L"Вы выбрали практическую студента: " << this->practices[i-1].studentName << " " << this->practices[i-1].studentSurname << endl;
         wcout << endl;
-        wcout << L"Поставьте оценцу от 1 до 5 за практическую" << endl;
+        wcout << L"Поставьте оценцу от 2 до 5 за практическую" << endl;
         wcin >> this->practices[i-1].score;
 
         wcout << L"Такую оценку поставить нельзя\n";
@@ -98,7 +100,8 @@ public:
     vector<Professor>& professors;
     vector<Practice>& practices;
 
-    Student(wstring surname, wstring firstName, wstring middleName, unsigned age, wstring group, wstring faculty, vector<Professor>& professors, vector<Practice>& practices)
+    Student(wstring surname, wstring firstName, wstring middleName, unsigned age, wstring group,
+            wstring faculty, vector<Professor>& professors, vector<Practice>& practices)
             : Human(surname, firstName, middleName, age), group(group), faculty(faculty), professors(professors), practices(practices) {}
 
     void Main() override {
@@ -214,9 +217,9 @@ void authorization(vector<Professor>& listProfessors, vector<Student>& listStude
         wcout << L"1. Препод" << endl;
         wcout << L"2. Студент" << endl;
         wcout << L"3. Выйти" << endl;
-        wcin >> choice;
 
         try {
+            wcin >> choice;
             switch (choice) {
                 case 1:
                     checkAuth = auth(listProfessors);
@@ -292,7 +295,7 @@ int main() {
 
     int choice = 0;
     while (choice != 3) {
-        wcout << L"Выберите за кого хотите зайти: " << endl;
+        wcout << L"Выберите действие: " << endl;
         wcout << L"1. Авторизоваться" << endl;
         wcout << L"2. Зарегаться" << endl;
         wcout << L"3. Выйти" << endl;
