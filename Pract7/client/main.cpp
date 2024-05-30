@@ -8,8 +8,6 @@
 #include <locale>
 #include <codecvt>
 
-#pragma comment(lib, "Ws2_32.lib")
-
 using namespace std;
 
 int main() {
