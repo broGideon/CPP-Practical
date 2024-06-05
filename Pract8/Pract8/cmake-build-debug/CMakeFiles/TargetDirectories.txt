@@ -1,3 +1,3 @@
-C:/Users/broGideon/CLionProjects/Pract8/cmake-build-debug/CMakeFiles/Pract8.dir
-C:/Users/broGideon/CLionProjects/Pract8/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/broGideon/CLionProjects/Pract8/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/broGideon/Desktop/CPP-Practical/Pract8/Pract8/cmake-build-debug/CMakeFiles/Pract8.dir
+C:/Users/broGideon/Desktop/CPP-Practical/Pract8/Pract8/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/broGideon/Desktop/CPP-Practical/Pract8/Pract8/cmake-build-debug/CMakeFiles/rebuild_cache.dir
