@@ -1,0 +1,3 @@
+C:/Users/eto_d/Desktop/CplusPlusPractice/ninethCPlusPLusPractice/build/CMakeFiles/ninethPractice.dir
+C:/Users/eto_d/Desktop/CplusPlusPractice/ninethCPlusPLusPractice/build/CMakeFiles/edit_cache.dir
+C:/Users/eto_d/Desktop/CplusPlusPractice/ninethCPlusPLusPractice/build/CMakeFiles/rebuild_cache.dir

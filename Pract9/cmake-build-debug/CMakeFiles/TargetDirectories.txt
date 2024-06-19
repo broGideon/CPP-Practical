@@ -1,0 +1,3 @@
+C:/Users/broGideon/Desktop/CPP-Practical/Pract9/cmake-build-debug/CMakeFiles/ninethPractice.dir
+C:/Users/broGideon/Desktop/CPP-Practical/Pract9/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/broGideon/Desktop/CPP-Practical/Pract9/cmake-build-debug/CMakeFiles/rebuild_cache.dir
