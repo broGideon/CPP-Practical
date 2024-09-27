@@ -1,4 +1,4 @@
-#include "Arduino.h"
+#include <Arduino.h>
 
 #define output 3
 #define firstButton 13
@@ -32,15 +32,7 @@ bool isActive = false;
 bool isBlink = false;
 
 void loop() {
-  if (digitalRead(secondButton) == HIGH) {
-    voltage = voltage < 255 ? voltage+51 : 0;
-    analogWrite(output, voltage);
-
-    isActive = true;
-    isBlink=false;
-    delay(200);
-  }
-  else if (digitalRead(firstButton) == HIGH) {
+  if (digitalRead(firstButton) == HIGH) {
     if (isActive) {
       digitalWrite(output, LOW);
       isActive = false;
@@ -50,24 +42,39 @@ void loop() {
     }
 
     isBlink=false;
+    while(digitalRead(firstButton)) {}
     delay(200);
+    return;
+  }
+  else if (digitalRead(secondButton) == HIGH) {
+    voltage = voltage < 255 ? voltage+51 : 0;
+    analogWrite(output, voltage);
+
+    isActive = true;
+    isBlink=false;
+    while(digitalRead(secondButton)) {}
+    delay(200);
+    return;
   }
   else if (digitalRead(thirdButton) == HIGH){
     String surname = "Turuntsev";
     Serial.print(surname + " Leonid Sergeevich");
-    Serial.println();
+    Serial.println("");
     stringToBinary(surname);
 
     isBlink=false;
+    while(digitalRead(thirdButton)) {}
     delay(200);
+    return;
   }
 
   if (Serial.available() > 0){
-    if (Serial.read() == 'M'){
+    char c = Serial.read();
+    if (c == 'M'){
       isActive=true;
       isBlink=true;
     }
-    else if (Serial.read() == 'S'){
+    else if (c == 'S'){
       isActive=false;
       isBlink=false;
       digitalWrite(output, LOW);
