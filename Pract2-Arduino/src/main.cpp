@@ -43,8 +43,6 @@ void loop() {
 
     isBlink=false;
     while(digitalRead(firstButton)) {}
-    delay(200);
-    return;
   }
   else if (digitalRead(secondButton) == HIGH) {
     voltage = voltage < 255 ? voltage+51 : 0;
@@ -53,8 +51,6 @@ void loop() {
     isActive = true;
     isBlink=false;
     while(digitalRead(secondButton)) {}
-    delay(200);
-    return;
   }
   else if (digitalRead(thirdButton) == HIGH){
     String surname = "Turuntsev";
@@ -64,8 +60,6 @@ void loop() {
 
     isBlink=false;
     while(digitalRead(thirdButton)) {}
-    delay(200);
-    return;
   }
 
   if (Serial.available() > 0){
@@ -86,4 +80,6 @@ void loop() {
     digitalWrite(output, LOW);
     delay(300);
   }
+
+  delay(100);
 }
