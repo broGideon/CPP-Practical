@@ -1,9 +1,9 @@
 #include <Arduino.h>
 
-#define output 3
-#define firstButton 13
-#define secondButton 11
-#define thirdButton 9
+#define output 11
+#define firstButton 7
+#define secondButton 4
+#define thirdButton 2
 
 void setup() {
   pinMode(output, OUTPUT);
