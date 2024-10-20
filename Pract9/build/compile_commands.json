@@ -1,8 +1,0 @@
-[
-{
-  "directory": "C:/Users/eto_d/Desktop/CplusPlusPractice/ninethCPlusPLusPractice/build",
-  "command": "C:\\msys64\\mingw64\\bin\\g++.exe   -g -std=gnu++23 -o CMakeFiles\\ninethPractice.dir\\main.cpp.obj -c C:\\Users\\eto_d\\Desktop\\CplusPlusPractice\\ninethCPlusPLusPractice\\main.cpp",
-  "file": "C:/Users/eto_d/Desktop/CplusPlusPractice/ninethCPlusPLusPractice/main.cpp",
-  "output": "CMakeFiles/ninethPractice.dir/main.cpp.obj"
-}
-]

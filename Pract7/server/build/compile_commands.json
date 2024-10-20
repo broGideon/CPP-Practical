@@ -1,8 +1,0 @@
-[
-{
-  "directory": "C:/Users/broGideon/Desktop/CPP-Practical/Pract7/server/build",
-  "command": "C:\\msys64\\mingw64\\bin\\g++.exe   -g -std=gnu++23 -o CMakeFiles\\server.dir\\main.cpp.obj -c C:\\Users\\broGideon\\Desktop\\CPP-Practical\\Pract7\\server\\main.cpp",
-  "file": "C:/Users/broGideon/Desktop/CPP-Practical/Pract7/server/main.cpp",
-  "output": "CMakeFiles/server.dir/main.cpp.obj"
-}
-]

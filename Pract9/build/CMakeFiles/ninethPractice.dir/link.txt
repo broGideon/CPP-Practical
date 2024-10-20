@@ -1,3 +1,0 @@
-"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\ninethPractice.dir/objects.a
-C:\msys64\mingw64\bin\ar.exe qc CMakeFiles\ninethPractice.dir/objects.a @CMakeFiles\ninethPractice.dir\objects1.rsp
-C:\msys64\mingw64\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\ninethPractice.dir/objects.a -Wl,--no-whole-archive -o ninethPractice.exe -Wl,--out-implib,libninethPractice.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\ninethPractice.dir\linkLibs.rsp
