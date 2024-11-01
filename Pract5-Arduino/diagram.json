@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "author": "bro Gideon",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-arduino-uno", "id": "master", "top": -133.8, "left": 9, "attrs": {} },
+    { "type": "wokwi-arduino-uno", "id": "slave", "top": 125.4, "left": 9, "attrs": {} },
+    { "type": "wokwi-logo", "id": "logo1", "top": -230.4, "left": -9.6, "attrs": {} }
+  ],
+  "connections": [
+    [ "master:A4.2", "slave:A4.2", "green", [ "v0" ] ],
+    [ "master:A5.2", "slave:A5.2", "green", [ "v0" ] ]
+  ],
+  "dependencies": {}
+}

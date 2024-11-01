@@ -1,0 +1,14 @@
+[wokwi]
+version = 1
+firmware = './.pio/build/uno/firmware.hex'
+elf = './.pio/build/uno/firmware.elf'
+
+[[arduino]]
+id = "master"
+type = "uno"
+sketch = "src/main.cpp"
+
+[[arduino]]
+id = "slave"
+type = "uno"
+sketch = "src/slave.cpp"
